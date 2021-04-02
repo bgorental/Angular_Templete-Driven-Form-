@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form (ngSubmit) = "onSubmitted()" #formInputs="ngForm">
+        <div id="user-data">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input 
+            type="text" 
+            id="username" 
+            class="form-control"
+            ngModel
+            name="username"
+            required>
+          </div>
+          <button class="btn btn-default" type="button">Suggest an Username</button>
+          <div class="form-group">
+            <label for="email">Mail</label>
+            <input 
+            type="email" 
+            id="email" 
+            class="form-control"
+            ngModel
+            value="email"
+            name="email"
+            email
+            required
+            #emailValid = "ngModel">
+            <span *ngIf="!emailValid.touched"> Please enter your email</span>
+            <span class="help-block" *ngIf = '!emailValid.valid && emailValid.touched'>Please enter a valid email!</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="secret">Secret Questions</label>
+          <select id="secret" class="form-control" [ngModel]='defaultQuesAns' name="secret">
+            <option value="pet">Your first Pet?</option>
+            <option value="teacher">Your first teacher?</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <textarea name="questAns" class="form-control" rows="3" [(ngModel)] = "answer"></textarea>
+        </div>
+        <p>your reply:{{ answer }}</p>
+        <div class="radio" *ngFor="let gender of genders">
+          <label for="gen">
+            <input id="gen" type="radio" name="gender" ngModel required [value]='gender'> {{ gender }}
+          </label>
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled] = "!formInputs.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
